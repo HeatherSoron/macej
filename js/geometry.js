@@ -1,7 +1,7 @@
-function Point(x, y) {
+Class.makeClass(null, function Point(x, y) {
 	this.x = x || 0;
 	this.y = y || 0;
-}
+})
 
 Point.prototype.normalize = function() {
 	var length = this.length();
@@ -60,7 +60,7 @@ Point.prototype.clone = function() {
 
 
 
-function Rectangle(left, top, width, height) {
+Class.makeClass(null, function Rectangle(left, top, width, height) {
 	this.left = left;
 	this.top = top;
 	this.width = width;
@@ -77,7 +77,7 @@ function Rectangle(left, top, width, height) {
 			return this.top + this.height;
 		}
 	});
-}
+});
 
 Rectangle.prototype.intersects = function(other) {
 	return (
