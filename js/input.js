@@ -17,3 +17,11 @@ function handleKeyUp(e) {
 		e.preventDefault();
 	}
 }
+
+// checks whether a key is pressed, and also sets state to non-pressed
+// this is useful for discrete press events, as opposed to continuous while-held events
+function clearKeyDown(keyName) {
+	var down = keysHeld[keyName];
+	keysHeld[keyName] = false;
+	return down;
+}
