@@ -12,14 +12,20 @@ dir.forEach(function(filename) {
 	}
 
 	var lines = fs.readFileSync('js/' + filename).toString().split('\n');
-	lines.filter(function(el) { return el.indexOf('Class.makeClass' !== -1) }).forEach(function(line) {
-		var matches = line.match(/Class\.makeClass\((\w+),\s*function (\w+)/);
-		if (matches) {
-			deps[matches[2]] = {
-				dep: matches[1],
-				file: filename,
-			};
-		}
+	lines.filter(function(el) { return el.indexOf('Class.makeClass') !== -1 || el.indexOf(' extends ') !== -1 }).forEach(function(line) {
+		var regexes = [ 
+			[/Class\.makeClass\((\w+),\s*function (\w+)/, [2,1]],
+			[/class\s+(\w+)\s+extends\s+(\w+)/, [1,2]],
+		];
+		regexes.forEach(re => {
+			var matches = line.match(re[0]);
+			if (matches) {
+				deps[matches[re[1][0]]] = {
+					dep: matches[re[1][1]],
+					file: filename,
+				};
+			}
+		});
 	});
 });
 
