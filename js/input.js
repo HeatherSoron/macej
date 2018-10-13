@@ -1,4 +1,5 @@
 var keysHeld = {};
+var mousePos = new Point();
 
 function handleKeyDown(e) {
 	var keyName = keyMap[e.keyCode];
@@ -16,6 +17,11 @@ function handleKeyUp(e) {
 		keysHeld[keyName] = false;
 		e.preventDefault();
 	}
+}
+
+function handleMouseMove(e) {
+	mousePos.x = e.offsetX;
+	mousePos.y = e.offsetY;
 }
 
 // checks whether a key is pressed, and also sets state to non-pressed
