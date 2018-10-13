@@ -33,6 +33,10 @@ Point.prototype.times = function(mult) {
 	return new Point(this.x * mult, this.y * mult);
 }
 
+Point.prototype.projectTo = function(other, length) {
+	return other.minus(this).normalize().times(length).plus(this);
+}
+
 Point.prototype.toRect = function(width, height, centered) {
 	var left = this.x;
 	var top = this.y;
@@ -41,6 +45,11 @@ Point.prototype.toRect = function(width, height, centered) {
 		top -= height / 2.0;
 	}
 	return new Rectangle(left, top, width, height);
+}
+
+// for passing as an array into things like Context2D methods
+Point.prototype.unpack = function() {
+	return [this.x, this.y];
 }
 
 
